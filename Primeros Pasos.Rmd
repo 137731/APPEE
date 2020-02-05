@@ -1,0 +1,43 @@
+---
+title: "Primeros Pasos con R y RStudio"
+author: "Mario Alberto García Meza"
+date: "5/2/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Iniciando con R y RStudio
+
+Como parte de una tradición que ha empezado al menos desde los años 50's, nuestro primer código a ejecutar será un "Hola mundo". Teclea el siguiente comando en el editor de texto en RStudio y presiona ctrl+Enter para ejecutarlo.
+```{r hello-world}
+print("hello world")
+```
+R es, en cierto modo, sólo una calculadora avanzada. Podemos pedirle que haga operaciones básicas como sumas, restas, multiplicaciones y divisiones.
+
+```{r suma}
+2+2
+```
+
+Podemos almacenar datos en _variables_ que podemos modificar a favor de nuestras necesidades.
+
+```{r equis}
+x <- 4 # almacenamos el numero 4 en una variable llamada 'x'
+x^2 # Ejecutamos x al cuadrado y lo presentamos en consola
+```
+Notaste que puse un símbolo de # (hash o gato)? Todo lo que se escriba después de ese símbolo es un _comentario_. Esto significa que el código lo va a ignorar completamente. Esto es bastante útil para entender la lógica de programación que estuviste haciendo y para poder trabajar en colaboración.
+
+En el resto del curso, usaremos la palabra _vectores_ para referirnos a una lista con elementos. Una lista o un vector se genera con la función `c()` y dentro se colocan los elementos que van a conformar la lista. De hecho, siempre que veas algo que usa paréntesis enfrente `f()`, ten la seguridad que se debe tratar de una función.
+
+```{r lista}
+y <- c(1,1,2,3,5,8,13,21) # creamos un vector
+y # mostramos el vector
+```
+Podemos hacer operaciones directas a un vector. Por ejemplo
+```{r vecOps}
+y+1
+y+x
+y + 1:8
+```
