@@ -41,3 +41,29 @@ y+1
 y+x
 y + 1:8
 ```
+
+## Funciones
+Existen functiones predeterminadas por las paqueterías básicas de R y otras que se pueden cargar en una _librería_. Las librerías no son más que paquetes externos que pueden contener funciones o bases de datos adicionales que podemos usar. Una de las razones más importantes por las que el uso de R se ha extendido tan rápido es que las funciones que no están dentro de la paquetería básica del programa se pueden encontrar en librerías externas. Además de que regularmente se pueden encontrar tutoriales y ejemplos específicos de uso. Esto es un apoyo increíble que permite aprender las matemáticas de la econometría y la práctica de manera paralela.
+
+Una de las funciones más útiles en estadística es la media. La media la llamamos con la función `mean()`. Por ejemplo, haciendo uso del valor que le asignamos previamente a `y`:
+
+```{r mean}
+mean(y)
+```
+
+Note que en la parte superior derecha de la pantalla se encuentra el _ambiente global_ (Global Environment). En este se indican las variables y datos que están guardados actualmente en la memoria RAM de la computadora. Si esta variable no está asignada, muy probablemente el código anterior no podrá correr correctamente y mostrará el error: `Error: object 'y' not found`. Es muy importante empezar temprano a identificar el tipo de mensaje de error que arroja la consola para poder conocer el tipo de respuesta que se debe implementar.
+
+> Ejercicio. Aplica la función de mediana y de moda al objeto `y`.
+
+## Bases de datos
+Una base de datos no es más que una _tabla_ que contiene información sobre las variables que nos interesan. Las bases de datos en R se cargan como un objeto de tipo _Data Frame_. Este es un objeto especial que contiene variables a las que RStudio nos ayuda a acceder de una manera más fácil y práctica. Las bases de datos en R se pueden cargar a partir de archvos con extensión .xlsx (Archivos de Excel), .csv (Valores separados por coma) o archivos de bases de datos relacionales como SQL. En un ambiente profesional, se prefieren los archivos con extensiones como .csv, por ser más ligeros y fáciles de interpretar por la computadora. Los archivos Excel se deben evitar lo más posible, por ser archivos _binarios_, diseñados para usarse preferentemente por el software de Microsoft.
+
+Algunas liberías contienen bases de datos integradas y R contiene algunas bases de datos de muestra que se pueden usar para practicar. Para encontrar estas bases de datos basta teclear `library(help = "datasets")`. Considere como un ejemplo la base de datos `EuStockMarkets`, que muestra los precios de cierre de cuatro de los principales índices de bolsa. Como se trata de una base de datos de 1860 observaciones y 4 variables, podemos ejecutar `head()` para mostrar sólo las primeras observaciones (un encabezado).
+```{r bdd}
+dim(EuStockMarkets) # la función dim() muestra las dimensiones de una base de datos
+head(EuStockMarkets) # con head() podemos mostrar las primeras 5 observaciones.
+```
+Podemos realizar un gráfico de líneas usando la función `plot()`. En el caso de la base de datos ÈuStockMarkets, el tipo de variable ya genera de manera predeterminada este tipo de gráficas.
+```{r plot}
+plot(EuStockMarkets)
+```
