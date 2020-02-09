@@ -63,7 +63,44 @@ Algunas liberías contienen bases de datos integradas y R contiene algunas bases
 dim(EuStockMarkets) # la función dim() muestra las dimensiones de una base de datos
 head(EuStockMarkets) # con head() podemos mostrar las primeras 5 observaciones.
 ```
-Podemos realizar un gráfico de líneas usando la función `plot()`. En el caso de la base de datos ÈuStockMarkets, el tipo de variable ya genera de manera predeterminada este tipo de gráficas.
+Podemos realizar un gráfico de líneas usando la función `plot()`. En el caso de la base de datos `EuStockMarkets`, el tipo de variable ya genera de manera predeterminada este tipo de gráficas.
 ```{r plot}
 plot(EuStockMarkets)
 ```
+
+Carguemos una base de datos diferente. Teclea `mtcars`para cargar una base usada para la revista _Motor Trend US_ en 1974 que contiene el consumo de gasolina y otros 10 aspectos del diseño y rendimiento de 32 automóviles. Para tener información general de la base de datos, podemos usar la función `str()`, que muestra la _estructura_ de la base de datos (`str` viene de _structure_ que en inglés es "estructura").
+```{r mtcars-str}
+str(mtcars)
+```
+Observe que el resultado que nos arroja la consola nos muestra primero una línea con las dimensiones de la base de datos. En este caso, es una tabla con 32 observaciones de 11 variables. A continuación, procede a listar las variables, el tipo de variable y a mostras las primeras observaciones. Por ejemplo, la variable `mpg` son las millas por galón que tiene como rendimiento el auto en cuestión. Esta es una variable numérica, lo cual puede ser notado en la segunda columna que imprime la función como `num`. Para ver la información completa de la base de datos, podemos usar la función `help(mtcars)`, o bien, podemos anteceder un signo de interrogación a la base de datos
+```{r help-mtcars}
+help(mtcars)
+```
+Naturalmente, esta información sólo la encontraremos en aquellas bases de datos que se hayan tomado el tiempo en cargarla.
+
+En ocasiones, el tipo de variable que R detecta por default no es el mismo que tiene o debe tener la variable. Por ejemplo, observe que la variable `vs` es una variable de valor binario. Los economistas solemos llamar a estas variables _dummy_ y son variables _categoricas_, es decir, suelen representarse con 1 o 0. Por ejemplo, en una base de datos de empleo, 1 podría significar que el encuestado tiene empleo y 0 que no. En el caso de `vs`, esta nos muestra si el motor tiene forma de _v_ o no. Pero, a pesar de que la variable se codifica con números, **no se trata de una variable numérica**. Por lo tanto, es necesario realizar correcciones a la base de datos. Es posible modificar una columna completa de una base de datos de una manera muy sencilla. 
+```{r logical-mt}
+mtcars$vs <- as.logical(mtcars$vs)
+```
+A continuación mostramos los pasos de lo que sucedió en la línea de código de arriba.
+
+* Para llamar una variable dentro de una base de datos, se usa el signo `$`; en este caso, usamos `mtcats$vs`.
+* Usamos una función para realizar la transformación. En este caso, haremos uso de la función  `as.logical()` para transformar `vs`en una variable tipo lógica. También existen formas de tranformar variables en numéricas (`as.numeric()`) o de tipo caracter (`as.character`). Es importante notar que estas funciones **no transforman** por si mismas a la variable dentro de la base de datos, esto es para evitar que hagamos transformaciones irremediables por accidente. 
+* En vez de eso, le tenemos que especificar que la transformación se está haciendo sobre la misma columna. Esto lo logramos asignando el valor transformado sobre el mismo vector.
+
+Alternativamente, podríamos haber asignado el valor transformado a cualquier otra columna o a una columna nueva. Por ejemplo, la variable `am` tiene el mismo caso que la variable `vs`: se trata de una variable _dummy_ que muestra si la transmisión es automática o manual. Suponga que por alguna razón deseamos mantener la variable `am` intacta y en vez de eso crear una nueva columna.
+```{r logic-am, eval=FALSE}
+mtcars$am2 <- as.logical(mtcars$am)
+```
+lo cual genera una columna nueva en la base de datos que muestra una variable de tipo lógica. Teclea nuevamente `str(mtcars)` para verificar los cambios hechos a la base de datos.
+
+## Librerías
+La función `plot()`puede llegar a ser muy poderosa. Bien usada, puede generar gráficos bastante complejos. Sin embargo, existen herramientas adicionales que pueden ser importadas y que pueden ayudar a que esta tarea sea mucho mas fáciles. Por ejemplo, la librería `ggplot2`, puede ayudar. Para descargar una librería, usamos la función `install.packages()`.
+```{r ggplot-neval, eval=FALSE}
+install.packages("ggplot2")
+```
+Instalar paquetería no significa que esta paquetería esté cargada en el sistema. Para mantener al programa ligero al cargar, R empieza una sesión con una paquetería básica (pero poderosa), pero si necesitamos hacer uso de algunas funciones especiales, es necesario cargar la paquetería que lo contiene con la función `library()`.
+```{r ggplot}
+library(ggplot2)
+```
+

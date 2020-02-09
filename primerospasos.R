@@ -14,3 +14,5 @@ x^2 # puedes hacer operaciones con vectores
 
 x + 1:3 # Puedes explicar que pasó aquí?
 
+library(help = "datasets")
+y
