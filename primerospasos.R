@@ -16,3 +16,6 @@ x + 1:3 # Puedes explicar que pasó aquí?
 
 library(help = "datasets")
 y
+
+?mtcars
+str(mtcars)

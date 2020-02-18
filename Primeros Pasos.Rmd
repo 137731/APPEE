@@ -93,6 +93,7 @@ Alternativamente, podríamos haber asignado el valor transformado a cualquier ot
 mtcars$am2 <- as.logical(mtcars$am)
 ```
 lo cual genera una columna nueva en la base de datos que muestra una variable de tipo lógica. Teclea nuevamente `str(mtcars)` para verificar los cambios hechos a la base de datos.
+> Ejercicio. Use la función `plot()` para realizar un gráfico de dispersión. Use como argumentos dos columnas que usted crea que se relacionan entre si.
 
 ## Librerías
 La función `plot()`puede llegar a ser muy poderosa. Bien usada, puede generar gráficos bastante complejos. Sin embargo, existen herramientas adicionales que pueden ser importadas y que pueden ayudar a que esta tarea sea mucho mas fáciles. Por ejemplo, la librería `ggplot2`, puede ayudar. Para descargar una librería, usamos la función `install.packages()`.
@@ -103,4 +104,5 @@ Instalar paquetería no significa que esta paquetería esté cargada en el siste
 ```{r ggplot}
 library(ggplot2)
 ```
+Una vez cargada la librería, es posible usar las funciones que hay en ella. Repite el siguiente código (Más adelante haremos más gráficos y aprenderemos a usar `ggplot`).
 
