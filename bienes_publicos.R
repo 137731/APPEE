@@ -9,7 +9,7 @@ getwd() # Revisa que el directorio que te arroja es el correcto
 sin_castigo <- read_excel("Public-goods-experimental-data.xlsx",
                      range = "A2:Q12")
 con_castigo <- read_excel("Public-goods-experimental-data.xlsx",
-                     range = "A2:Q12")
+                     range = "A16:Q26")
 
 # Ejercicio
 # Calcula la contribucion promedio
@@ -31,7 +31,7 @@ for (fila in 1:nrow(sin_castigo)) {
 # Metodo 2: Usando la función apply
 ?apply
 
-sin_castigo$promedio <- apply(sin_castigo[,2:17],1,mean)
+con_castigo$promedio <- apply(con_castigo[,2:17],1,mean) # Cambiamos a que usara apply a la base con castigo
 
 
 
@@ -45,3 +45,45 @@ title("Contribuciones promedio en el juego de bienes publicos")
 legend("bottomleft", lty = 1, cex = 1.2, lwd = 2,
        legend = c("Sin castigo", "Con castigo"),
        col = c("blue", "red"))
+
+# Otra forma de hacer los graficos con ggplot
+library(ggplot2)
+
+ggplot(data.frame(Period = sin_castigo$Period,
+                  sin_castigo = sin_castigo$promedio,
+                  con_castigo = con_castigo$promedio), aes(x = Period))+
+  geom_line(aes(y = sin_castigo), color = "blue")+
+  geom_line(aes(y = con_castigo), color = "red")+
+  labs(x = "Ronda", y = "Contribucion promedio",
+       title = "Contribuciones promedio en el juego de bienes publicos")
+
+
+##############################################################
+# Segunda parte. ¿Cómo se comparan las contribuciones al inicio y al final del periodo?
+
+# Primero, extraemos en un solo vector las contribuciones promedio al inicio y al final en los dos juegos
+contribuciones <- c(sin_castigo$promedio[1], # Esta es la contribucion inicial sin castigo
+                    sin_castigo$promedio[10],# Esta es la contribucion final sin castigo
+                    con_castigo$promedio[1], # Que es esto?
+                  con_castigo$promedio[10]) # Que es esto?
+
+contribuciones # Trata de adivinar lo que hará esta línea de código antes de ejecutarla
+
+# Ahora la podemos acomodar como una matriz. Esto permitirá realizar fácilmente el gráfico
+
+contribuciones <- matrix(contribuciones,
+                         nrow = 2,
+                         byrow = TRUE)
+contribuciones
+
+
+###################################
+# Ahora realicemos un gráfico de barras
+barplot(contribuciones,
+        main = "Contribuciones promedio en un juego de bienes publicos",
+        ylab = "Contribuciones",
+        beside = TRUE, col = c("Blue", "Red"),
+        names.arg = c("Ronda 1", "Ronda 10"))
+legend("bottomleft", pch = 1, col = c("Blue", "Red"),
+       c("Sin Castigo", "Con castigo"))
+
