@@ -45,3 +45,19 @@ title("Contribuciones promedio en el juego de bienes publicos")
 legend("bottomleft", lty = 1, cex = 1.2, lwd = 2,
        legend = c("Sin castigo", "Con castigo"),
        col = c("blue", "red"))
+
+
+
+####################
+tabla <- c(sin_castigo$promedio[1], sin_castigo$promedio[10],
+           con_castigo$promedio[1], con_castigo$promedio[10])
+
+tabla <- matrix(tabla, nrow = 2, byrow = TRUE)
+
+barplot(tabla, 
+        main = "Cambia esto al resultado correcto",
+        ylab = "Que deberia decir aqui?",
+        beside = TRUE, col = c("Blue", "Red"), 
+        names.arg = c("Round 1", "Round 10"))
+legend("bottomleft", pch = 1, col = c("Blue", "Red"),
+       c("Sin castigo", "?????"))
