@@ -87,3 +87,45 @@ barplot(contribuciones,
 legend("bottomleft", pch = 1, col = c("Blue", "Red"),
        c("Sin Castigo", "Con castigo"))
 
+############################################################
+# Aplicando y entendiendo la desviacion estandar
+
+# para conocer la varianza de una fila
+
+sin_castigo$varS <- apply(sin_castigo[,2:17], 1, var)
+
+sin_castigo$sdS <- apply(sin_castigo[,2:17], 1, sd)
+con_castigo$varC <- apply(con_castigo[,2:17], 1, var)
+con_castigo$sdC <- apply(con_castigo[,2:17], 1, sd)
+
+# Conocemos como intervalo de confianza a la situacion en la que un cierto porcentaje de los datos
+# está dentro de dos desviaciones estándar de la media. Como tenemos 16 países en cada periodo
+# un intervalo de confianza significa que, para que el resultado no sea sólo producto de la casualidad...
+# podríamos esperar que cerca de una observación esté fuera de este parámetro.
+
+# Que hace esta linea de código?
+lista_ciudades <- names(sin_castigo[2:17])
+
+plot(sin_castigo$Period, sin_castigo$promedio, type = "l",
+     col = "blue", lwd = 2, xlab = "Ronda",
+     ylim = c(0,20), ylab = "Contribucion promedio")
+# Explique con sus palabras lo que la siguiente linea de codigo realiza
+lines(sin_castigo$promedio + 2 * sin_castigo$sdS,
+      col = "red",
+      lwd = 2) # Cambia el valor en esta linea y comenta lo que sucede
+#
+#
+
+lines(sin_castigo$promedio - 2 * sin_castigo$sdS,
+      col = "red",
+      lwd = 2)
+
+for(i in lista_ciudades) {
+  points(sin_castigo[[1]], sin_castigo[[i]])
+}
+
+
+title("Ponle un titulo")
+
+legend("bottomleft", legend = c("Promedio", "+/- 2 sd"),
+       col = c("blue", "red"), lwd = 2, lty = 1, cex = 1.2)
