@@ -98,6 +98,7 @@ sin_castigo$sdS <- apply(sin_castigo[,2:17], 1, sd)
 con_castigo$varC <- apply(con_castigo[,2:17], 1, var)
 con_castigo$sdC <- apply(con_castigo[,2:17], 1, sd)
 
+
 # Conocemos como intervalo de confianza a la situacion en la que un cierto porcentaje de los datos
 # está dentro de dos desviaciones estándar de la media. Como tenemos 16 países en cada periodo
 # un intervalo de confianza significa que, para que el resultado no sea sólo producto de la casualidad...
@@ -129,3 +130,74 @@ title("Ponle un titulo")
 
 legend("bottomleft", legend = c("Promedio", "+/- 2 sd"),
        col = c("blue", "red"), lwd = 2, lty = 1, cex = 1.2)
+
+
+#############################
+# Encontrar los valores maximos y minimos
+apply(sin_castigo[, 2:17], 1, range)
+
+
+sin_castigo$minimo <- apply(sin_castigo[,2:17], 1, min)
+sin_castigo$maximo <- apply(sin_castigo[,2:17], 1, max)
+
+# Con el siguiente codigo haremos una tabla resumen
+print("Juego de bienes publicos sin castigo")
+round(sin_castigo[c(1, 10), c(1, 18:22)], digits = 2)
+
+
+# La opcion del castigo se introdujo en el juego de los bienes publicos para
+# ver si esto ayudaría a aumentar las contribuciones en comparacion de la opcion sin castigo
+# Calcularemos el p-valor (https://es.wikipedia.org/wiki/Valor_p) para comparar
+# los resultados de ambos experimentos de forma mas formal.
+
+# Comparando los resultados del periodo 10, podemos ver que la contribucion media
+# en el experimento con castigo es ____ unidades mayor que el experimento sin castigo
+# Pero... esto podría ser debido al azar, no?
+
+# Para ver cómo esto puede ser resultado del azar, considere el siguiente experimento.
+
+# a) Lanza una moneda seis veces usando únicamente una mano (un experimento se debe repetir
+# replicando las mismas condiciones) y registra los resultados. Luego, usando la misma mano,
+# tira la moneda seis veces y registra los resultados.
+
+# b) Compara los resultados de la pregunta (a) Obtuviste el mismo numero de caras
+# en los dos casos? Incluso si si, la secuencia de los resultados (el orden) fue el mismo?
+
+
+###############################################################
+# Pruebas de hipótesis
+# Calculo del valor p para la diferencia en medias
+
+# Primero extraigamos la observacion del periodo 1 para la informacion con y sin
+# castigo
+
+p1_Sin <- sin_castigo[1,2:17]
+p1_Con <- con_castigo[1,2:17]
+
+
+t.test(x = p1_Sin, y = p1_Con) # corre esta linea de codigo
+# desafortunadamente, esto arroja un error
+# Error: Must use a vector in `[`, not an object of class matrix.
+
+# esto es debido a que p1_Sin y p1_Con aun son 'tibbles' (bases de datos)
+# y la funcion t.test() requiere que x y y sean variables. Esto lo podemos lograr
+# usando la funcion t(). Si estas familiarizada(o) con el álgebra lineal, 
+# esto es similar a usar la transpuesta de un vector.
+
+p1_Sin <- t(sin_castigo[1,2:17])
+p1_Con <- t(con_castigo[1,2:17])
+
+
+t.test(x = p1_Sin, y = p1_Con) 
+
+# Que podemos inferir de este valor p?
+
+
+# Realiza lo mismo para el periodo 10.
+
+
+
+##################################
+# Discute las limitaciones de los experimentos y sugiere formas de sobreponerse a ellas
+# (considera para esto la lectura de las paginas 158 a la 171 del siguiente paper
+# de Levitt y List https://sites.duke.edu/niou/files/2012/04/Levitt-List_Experiments_2007.pdf)
